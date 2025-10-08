@@ -3,10 +3,7 @@ import os
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import GithubFileLoader
 from langchain_openai import OpenAIEmbeddings
-from langchain_text_splitters import (
-    Language,
-    RecursiveCharacterTextSplitter,
-)
+from langchain_text_splitters import Language, RecursiveCharacterTextSplitter
 
 
 def main():
@@ -24,13 +21,13 @@ def main():
     )
 
     print("Loading docs...")
-    
+
     docs = python_code_loader.load()
 
     print(f"Finished loading {len(docs)} docs")
 
     python_splitter = RecursiveCharacterTextSplitter.from_language(
-        language=Language.PYTHON, chunk_size = 4000, chunk_overlap = 1000
+        language=Language.PYTHON, chunk_size=4000, chunk_overlap=1000
     )
 
     print("Splitting docs...")

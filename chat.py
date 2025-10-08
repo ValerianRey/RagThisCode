@@ -10,7 +10,6 @@ def print_messages(response):
 
     for message in messages:
 
-
         if isinstance(message, HumanMessage):
             emoji = "👤"
         elif isinstance(message, AIMessage):
@@ -46,7 +45,9 @@ async def main():
 
     agent = create_react_agent(model="openai:gpt-4.1", tools=tools)
     response = await agent.ainvoke(
-        {"messages": "can you add the repo TorchJD/torchjd to the vector store?"}
+        {
+            "messages": "can you add the repo TorchJD/torchjd to the vector store and tell me the number of chunks added?"
+        }
     )
     print_messages(response)
 
