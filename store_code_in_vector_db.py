@@ -10,8 +10,6 @@ from langchain_text_splitters import (
 
 
 def main():
-
-
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
     python_code_loader = GithubFileLoader(
@@ -43,10 +41,9 @@ def main():
         embedding_function=embeddings,
         persist_directory="./data/chroma_langchain_db",
     )
-    document_ids = vector_store.add_documents(documents=chunks)
+    _ = vector_store.add_documents(documents=chunks)
 
     print(f"✅ Successfully stored {len(chunks)} chunks in vector store")
-
 
 
 if __name__ == "__main__":

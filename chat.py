@@ -1,10 +1,7 @@
 import asyncio
 
-from fastmcp import Client
-from fastmcp.client.transports import StreamableHttpTransport
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from langchain_mcp_adapters.tools import load_mcp_tools
 from langgraph.prebuilt import create_react_agent
 
 

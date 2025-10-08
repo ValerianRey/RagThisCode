@@ -2,16 +2,15 @@ from fastmcp import FastMCP
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 
-str_separation = "\n" * 8 + "-" * 180 + "\n" * 8
+_STR_SEPARATION = "\n" * 8 + "-" * 180 + "\n" * 8
 def print_docs(documents):
     for doc in documents:
         print(doc.metadata["path"])
         print(doc.page_content)
-        print(str_separation)
+        print(_STR_SEPARATION)
 
 
 def main():
-
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
     vector_store = Chroma(
@@ -30,7 +29,6 @@ def main():
    
     mcp.run(transport="http", host="127.0.0.1", port=9000)
     
-
 
 if __name__ == "__main__":
     main()
