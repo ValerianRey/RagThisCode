@@ -45,3 +45,18 @@ Run:
 ```
 uv run pre-commit install
 ```
+
+
+# Running in Docker
+
+```
+docker build -t ragthiscode:latest .
+```
+
+```
+docker run --rm -p 9000:9000 \
+  -e OPENAI_API_KEY=$OPENAI_API_KEY \
+  -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN \
+  -v $PWD/data/chroma_langchain_db:/app/data/chroma_langchain_db \
+  ragthiscode:latest
+```
