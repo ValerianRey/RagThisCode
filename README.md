@@ -38,3 +38,10 @@ To start the chat client that will connect to the MCP server that you just start
 ```
 uv run chat.py
 ```
+
+# Contributing
+
+Run:
+```
+uv run pre-commit install
+```
