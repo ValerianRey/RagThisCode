@@ -17,7 +17,7 @@ WORKDIR /app
 COPY pyproject.toml ./
 
 # Install project dependencies into the system interpreter using uv
-RUN uv sync --frozen --no-dev --no-install-project
+RUN uv sync --no-dev --no-install-project
 
 # Copy the rest of the app
 COPY . .
