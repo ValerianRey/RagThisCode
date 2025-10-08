@@ -69,7 +69,7 @@ def main():
         for chunk in chunks:
             chunk.metadata["repo_name"] = repo_name
 
-        _ = vector_store.add_documents(documents=chunks)
+        vector_store.add_documents(documents=chunks)
 
         message = f"✅ Successfully stored {len(chunks)} chunks in vector store"
         print(message)
@@ -83,7 +83,7 @@ def main():
     def _delete_repo_from_vector_store(repo_name: str) -> None:
         """Delete a repository from the vector store"""
         print(f"Deleting {repo_name} from vector store")
-        _ = vector_store.delete(where={"repo_name": repo_name})
+        vector_store.delete(where={"repo_name": repo_name})
         print(f"✅ Successfully deleted {repo_name} from vector store")
 
     mcp.run(transport="http", host="0.0.0.0", port=9000)
