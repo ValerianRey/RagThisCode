@@ -10,10 +10,13 @@ from langchain_text_splitters import (
 
 
 def main():
+
+    repo_name = "TorchJD/torchjd"
+
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
     python_code_loader = GithubFileLoader(
-        repo="TorchJD/torchjd",  # the repo name
+        repo=repo_name,  # the repo name
         branch="main",  # the branch name
         access_token=os.environ["GITHUB_ACCESS_TOKEN"],
         github_api_url="https://api.github.com",
@@ -36,8 +39,11 @@ def main():
 
     print(f"Finished splitting {len(chunks)} chunks")
 
+    for chunk in chunks:
+        chunk.metadata["repo_name"] = repo_name
+
     vector_store = Chroma(
-        collection_name="torchjd_code_collection",
+        collection_name="code_collection",
         embedding_function=embeddings,
         persist_directory="./data/chroma_langchain_db",
     )

@@ -30,7 +30,15 @@ async def main():
             "similarity_search": {
                 "url": "http://localhost:9000/mcp",
                 "transport": "streamable_http",
-            }
+            },
+            "add_repo_to_vector_store": {
+                "url": "http://localhost:9000/mcp",
+                "transport": "streamable_http",
+            },
+            "delete_repo_from_vector_store": {
+                "url": "http://localhost:9000/mcp",
+                "transport": "streamable_http",
+            },
         }
     )
 
@@ -38,7 +46,7 @@ async def main():
 
     agent = create_react_agent(model="openai:gpt-4.1", tools=tools)
     response = await agent.ainvoke(
-        {"messages": "can you find the implementation of UPGrad?"}
+        {"messages": "can you add the repo TorchJD/torchjd to the vector store?"}
     )
     print_messages(response)
 
