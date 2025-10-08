@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir uv
 WORKDIR /app
 
 # Copy only project files needed for dependency resolution first for better caching
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml ./
 
 # Install project dependencies into the system interpreter using uv
 RUN uv sync --frozen --no-dev --no-install-project
