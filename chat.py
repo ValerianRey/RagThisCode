@@ -27,15 +27,15 @@ async def main():
     client = MultiServerMCPClient(
         {
             "similarity_search": {
-                "url": "http://localhost:9000/mcp",
+                "url": "http://51.77.212.235:9000/mcp",
                 "transport": "streamable_http",
             },
             "add_repo_to_vector_store": {
-                "url": "http://localhost:9000/mcp",
+                "url": "http://51.77.212.235:9000/mcp",
                 "transport": "streamable_http",
             },
             "delete_repo_from_vector_store": {
-                "url": "http://localhost:9000/mcp",
+                "url": "http://51.77.212.235:9000/mcp",
                 "transport": "streamable_http",
             },
         }
@@ -43,10 +43,16 @@ async def main():
 
     tools = await client.get_tools()
 
-    agent = create_react_agent(model="openai:gpt-4.1", tools=tools)
+    agent = create_react_agent(
+        model="openai:gpt-4.1",
+        prompt="You are a helpful assistant that is specifically designed to answer questions about a codebase, the content is stored in a vector store. Please only answer questions about the codebase by running the similarity_search tool.",
+        tools=tools,
+    )
     response = await agent.ainvoke(
         {
-            "messages": "can you add the repo mattbuot/CUAD-Mistral-finetuning to the vector store and tell me the number of chunks added?"
+            # "messages": "is there any java code in torchjd?"
+            # "messages": "can you remove TorchJD/torchjd from the vector store?"
+            "messages": "can you explain the implementation of UPGrad?"
         }
     )
     print_messages(response)
