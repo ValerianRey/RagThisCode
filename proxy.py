@@ -2,7 +2,8 @@ from typing import Any
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from langchain_core.messages import AIMessage
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
@@ -15,13 +16,31 @@ class ChatRequest(BaseModel):
 
 app = FastAPI()
 
+allowed_origins = [
+    "http://localhost:7070",
+    "http://127.0.0.1:7070",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",  # Vite dev server
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
+    allow_origins=allowed_origins,  # Configure appropriately for production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files to serve the frontend
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+
+# Serve the main HTML file at the root
+@app.get("/")
+async def read_index():
+    return FileResponse("frontend/index.html")
 
 
 @app.post("/chat")

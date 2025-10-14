@@ -22,10 +22,13 @@ RUN uv sync --no-dev --no-install-project
 # Copy the rest of the app
 COPY . .
 
+# Copy frontend files
+COPY frontend/ ./frontend/
+
 # Ensure data directory exists (mounted volume can override)
 RUN mkdir -p /app/data/chroma_langchain_db
 
-EXPOSE 9000
+EXPOSE 7070 9000
 
-# Default command: run the server with uv's Python
-CMD ["uv", "run", "python", "server.py"]
+# Default command: run both servers
+CMD ["sh", "-c", "uv run python server.py & uv run python proxy.py"]

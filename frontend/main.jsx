@@ -28,7 +28,7 @@ function App() {
     setMessages((prev) => [...prev, placeholder]);
 
     try {
-      const res = await fetch("http://127.0.0.1:7070/chat_stream", {
+      const res = await fetch("/chat_stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
