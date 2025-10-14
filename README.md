@@ -64,9 +64,5 @@ docker build -t ragthiscode:latest .
 ```
 
 ```
-docker run --rm -p 9000:9000 \
-  -e OPENAI_API_KEY=$OPENAI_API_KEY \
-  -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN \
-  -v $PWD/data/chroma_langchain_db:/app/data/chroma_langchain_db \
-  ragthiscode:latest
+docker run -p 7070:7070 -p 9000:9000  -e OPENAI_API_KEY=$OPENAI_API_KEY   -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN -v $PWD/data/chroma_langchain_db:/app/data/chroma_langchain_db  --cpus="1.0" --memory="2g" -d ragthiscode
 ```
