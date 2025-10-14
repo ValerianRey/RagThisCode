@@ -28,14 +28,36 @@ function App() {
     setMessages((prev) => [...prev, placeholder]);
 
     try {
-      const res = await fetch("http://127.0.0.1:7070/chat", {
+      const res = await fetch("http://127.0.0.1:7070/chat_stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
       });
-      const data = await res.json();
-      const finalText = typeof data.final === "string" ? data.final : String(data.final ?? "");
-      setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: `Final answer:\n${finalText}`, final: true } : m)));
+
+      if (!res.body) {
+        throw new Error("No response body");
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      let done = false;
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        const chunk = value ? decoder.decode(value, { stream: !done }) : "";
+        if (chunk) {
+          acc += chunk;
+          const parts = acc.split("\n[DONE]");
+          const toRender = parts[0];
+          setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: toRender } : m)));
+          if (parts.length > 1) {
+            setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: toRender, final: true } : m)));
+            break;
+          }
+        }
+      }
     } catch (e) {
       setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: "Error contacting backend.", final: true } : m)));
     }
