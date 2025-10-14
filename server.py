@@ -33,7 +33,7 @@ def main():
         retrieved_docs = vector_store.similarity_search(query)
         return [doc.page_content for doc in retrieved_docs]
 
-    @mcp.tool
+    @mcp.tool(enabled=False)
     def add_repo_to_vector_store(repo_name: str) -> str:
         """Add a repository to the vector store"""
 
@@ -75,7 +75,7 @@ def main():
         print(message)
         return message
 
-    @mcp.tool
+    @mcp.tool(enabled=False)
     def delete_repo_from_vector_store(repo_name: str) -> None:
         """Delete a repository from the vector store"""
         _delete_repo_from_vector_store(repo_name)

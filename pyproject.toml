@@ -14,4 +14,6 @@ dependencies = [
     "langchain-text-splitters>=0.3.11",
     "langgraph>=0.6.8",
     "pre-commit>=2.9.2",  # isort doesn't work before 2.9.2
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
 ]

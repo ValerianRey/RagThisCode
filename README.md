@@ -39,6 +39,16 @@ To start the chat client that will connect to the MCP server that you just start
 uv run chat.py
 ```
 
+To start the proxy
+```
+uv run proxy.py
+```
+
+To start the client
+```
+python3 -m http.server 5173 --bind 127.0.0.1 --directory "./frontend"
+```
+
 # Contributing
 
 Run:
