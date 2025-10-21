@@ -22,6 +22,8 @@ export OPENAI_API_KEY="sk-proj-....."
 ```
 to your `.bashrc` or `.zshrc`.
 
+Restart your terminal for your exports to be effective.
+
 # Running
 
 To fetch code from GitHub, run:
