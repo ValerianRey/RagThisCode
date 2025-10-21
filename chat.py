@@ -38,14 +38,6 @@ async def main():
                 "url": "http://51.77.212.235:9000/mcp",
                 "transport": "streamable_http",
             },
-            "add_repo_to_vector_store": {
-                "url": "http://51.77.212.235:9000/mcp",
-                "transport": "streamable_http",
-            },
-            "delete_repo_from_vector_store": {
-                "url": "http://51.77.212.235:9000/mcp",
-                "transport": "streamable_http",
-            },
         }
     )
 
