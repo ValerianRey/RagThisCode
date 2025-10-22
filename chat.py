@@ -32,10 +32,12 @@ def print_messages(response):
 
 async def main():
 
+    server_ip = "54.36.102.143"  # "54.36.102.143"
+
     client = MultiServerMCPClient(
         {
             "similarity_search": {
-                "url": "http://51.77.212.235:9000/mcp",
+                "url": f"http://{server_ip}:9000/mcp",
                 "transport": "streamable_http",
             },
         }
