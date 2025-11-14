@@ -52,6 +52,13 @@ async def read_index():
     return FileResponse("frontend/index.html")
 
 
+# Redirect endpoint for GitHub button
+@app.get("/redirect")
+async def redirect_page():
+    """Redirect page that extracts repo from referer and redirects to chat"""
+    return FileResponse("frontend/redirect.html")
+
+
 @app.get("/{repo_name:path}")
 async def add_repo_page(repo_name: str):
     """Display loading page for repository ingestion"""

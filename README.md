@@ -1,7 +1,7 @@
 # RagThisCode
 Setup an MCP server to do RAG over any public GitHub repo or any of your private repos
 
-<a href="#" onclick="(function(){const m=window.location.href.match(/github\.com\/([^\/]+)\/([^\/]+)/);if(m){window.location.href='http://127.0.0.1:7070/'+m[1]+'/'+m[2].split('/')[0].split('?')[0].split('#')[0];}else{alert('Could not extract repository information.');}return false;})();" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background-color: #238636; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 14px; border: 1px solid #2ea043; transition: background-color 0.2s;">
+<a href="http://127.0.0.1:7070/redirect" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background-color: #238636; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 14px; border: 1px solid #2ea043; transition: background-color 0.2s;">
   <img src="assets/logo.png" alt="RagThisCode" style="height: 20px; width: auto; vertical-align: middle;">
   💬 Chat with this code
 </a>
@@ -11,7 +11,7 @@ Setup an MCP server to do RAG over any public GitHub repo or any of your private
 Add this button to your GitHub repository README to allow users to quickly access the chat interface:
 
 ```html
-<a href="#" onclick="(function(){const m=window.location.href.match(/github\.com\/([^\/]+)\/([^\/]+)/);if(m){window.location.href='http://127.0.0.1:7070/'+m[1]+'/'+m[2].split('/')[0].split('?')[0].split('#')[0];}else{alert('Could not extract repository information.');}return false;})();" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background-color: #238636; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 14px; border: 1px solid #2ea043; transition: background-color 0.2s;">
+<a href="http://127.0.0.1:7070/redirect" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background-color: #238636; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; font-size: 14px; border: 1px solid #2ea043; transition: background-color 0.2s;">
   <img src="assets/logo.png" alt="RagThisCode" style="height: 20px; width: auto; vertical-align: middle;">
   💬 Chat with this code
 </a>
