@@ -24,11 +24,13 @@ COPY . .
 
 # Copy frontend files
 COPY frontend/ ./frontend/
+COPY assets/ ./assets/
 
 # Ensure data directory exists (mounted volume can override)
-RUN mkdir -p /app/data/chroma_langchain_db
+#RUN mkdir -p /app/data/chroma_langchain_db
 
-EXPOSE 7070 9000
+EXPOSE 7070
 
 # Default command: run both servers
-CMD ["sh", "-c", "uv run python server.py & uv run python proxy.py"]
+#CMD ["sh", "-c", "uv run python server.py & uv run python proxy.py"]
+CMD ["uv", "run", "python", "local_chat.py"]
