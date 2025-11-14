@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adding Repository - {repo_name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/marked@12.0.0/marked.min.js"></script>
+</head>
+<body>
+    <div id="loading-container">
+        <div class="loading-box">
+            <div class="loading" id="loading">
+                <h1>Indexing Repository</h1>
+                <p>Processing <span class="repo-name" id="repo-name">{repo_name}</span>...</p>
+                <div class="spinner"></div>
+                <p style="color: #666;">This may take a few minutes</p>
+            </div>
+            <div class="error" id="error"></div>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script type="text/babel" data-type="module" src="/static/main.jsx"></script>
+    <script>
+        window.REPO_NAME = {repo_name_json};
+    </script>
+    <script src="/static/repo_loading.js"></script>
+</body>
+</html>

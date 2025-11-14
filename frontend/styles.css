@@ -34,7 +34,8 @@ body {
 .logo {
   width: 28px; height: 28px;
   border-radius: 6px;
-  background: linear-gradient(135deg, var(--brand), var(--brand-600));
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .title { font-weight: 600; letter-spacing: 0.2px; }
 .subtitle { color: var(--muted); font-size: 13px; }
