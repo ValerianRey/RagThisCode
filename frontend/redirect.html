@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <script>
+        function extractRepoFromReferer() {
+            const referer = document.referrer;
+            if (!referer) {
+                // Try to get from URL parameter as fallback
+                const urlParams = new URLSearchParams(window.location.search);
+                const repo = urlParams.get('repo');
+                if (repo) {
+                    return repo;
+                }
+                alert('Could not detect repository. Please make sure you clicked the button from a GitHub repository page.');
+                return null;
+            }
+
+            const githubMatch = referer.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+            if (githubMatch) {
+                const owner = githubMatch[1];
+                const repo = githubMatch[2].split('/')[0].split('?')[0].split('#')[0];
+                return `${owner}/${repo}`;
+            }
+
+            alert('Could not extract repository information from referer. Please make sure you clicked the button from a GitHub repository page.');
+            return null;
+        }
+
+        const repo = extractRepoFromReferer();
+        if (repo) {
+            window.location.href = `http://127.0.0.1:7070/${repo}`;
+        }
+    </script>
+    <p>Redirecting...</p>
+</body>
+</html>
