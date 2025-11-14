@@ -18,8 +18,8 @@ def add_repo_to_vector_store(repo_name: str, vector_store: Chroma, branch: str =
     """
 
     # delete everything to avoid duplicates, this enables pulling the latest version of the repo
-    _clear_vector_store(vector_store)
-    # _delete_repo_from_vector_store(repo_name=repo_name, vector_store=vector_store)
+    # _clear_vector_store(vector_store)
+    _delete_repo_from_vector_store(repo_name=repo_name, vector_store=vector_store)
 
     print(f"Adding {repo_name} to vector store")
 

@@ -83,9 +83,9 @@ function App() {
     setSending(false);
   };
 
-  const handleRepoSubmit = (e) => {
+  const handleRepoSubmit = (e, urlOverride = null) => {
     e?.preventDefault?.();
-    const url = repoUrl.trim();
+    const url = (urlOverride || repoUrl).trim();
     if (!url) return;
 
     let repoName = "";
@@ -144,7 +144,7 @@ function App() {
           <div style={{ maxWidth: "600px", width: "100%", padding: "40px 20px" }}>
             <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Enter a GitHub Repository</h2>
             <p style={{ color: "var(--muted)", marginBottom: "30px", textAlign: "center" }}>
-              Paste a GitHub repository URL to get started
+              Paste a GitHub Python repository URL to get started
             </p>
             <form onSubmit={handleRepoSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <input
@@ -163,6 +163,36 @@ function App() {
               >
                 Load Repository
               </button>
+              <p style={{ color: "var(--muted)", marginBottom: "10px", textAlign: "left" }}>
+              Or try one of these examples:
+            </p>
+
+            <div style={{ display: "flex", justifyContent: "center", gap: "12px", marginBottom: "20px" }}>
+              <button
+                type="button"
+                className="example-btn"
+                style={{ padding: "10px 18px", borderRadius: "6px", background: "var(--brand)", fontSize: "15px" }}
+                onClick={() => handleRepoSubmit(null, "https://github.com/ValerianRey/RagThisCode")}
+              >
+                RAGThisCode (this project)
+              </button>
+              <button
+                type="button"
+                className="example-btn"
+                style={{ padding: "10px 18px", borderRadius: "6px", background: "var(--brand)", fontSize: "15px" }}
+                onClick={() => handleRepoSubmit(null, "https://github.com/TorchJD/torchjd")}
+              >
+                TorchJD
+              </button>
+              <button
+                type="button"
+                className="example-btn"
+                style={{ padding: "10px 18px", borderRadius: "6px", background: "var(--brand)", fontSize: "15px" }}
+                onClick={() => handleRepoSubmit(null, "https://github.com/pre-commit/pre-commit")}
+              >
+                pre-commit
+              </button>
+            </div>
             </form>
           </div>
         </div>
