@@ -2,6 +2,7 @@ const { StrictMode, useEffect, useMemo, useRef, useState } = React;
 const { createRoot } = ReactDOM;
 
 function App() {
+  const [repoName, setRepoName] = useState(window.REPO_NAME || null);
   const [messages, setMessages] = useState([
     { id: 1, role: "assistant", content: "Ask me about your codebase. I'll search the vector store." },
   ]);
@@ -31,7 +32,7 @@ function App() {
       const res = await fetch("/chat_stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ message: text , repo_name: repoName}),
       });
 
       if (!res.body) {
@@ -71,7 +72,9 @@ function App() {
         <div className="logo" />
         <div>
           <div className="title">RagThisCode</div>
-          <div className="subtitle">Code-aware chat powered by your vector store</div>
+          <div className="subtitle">
+            {repoName ? `You are chatting about the repository ${repoName}` : "Code-aware chat powered by your vector store"}
+          </div>
         </div>
       </div>
 

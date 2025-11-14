@@ -1,29 +1,21 @@
 import argparse
 import os
 
-from langchain_chroma import Chroma
 from langchain_community.document_loaders import GithubFileLoader
 from langchain_core.vectorstores import VectorStore
-from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import Language, RecursiveCharacterTextSplitter
 
+from common import get_vector_store
 
-def main(repo_name: str, branch: str = "main", file_filter: str | None = None):
+
+def add_repo_to_vector_store(repo_name: str, vector_store: VectorStore, branch: str = "main"):
     """Add a repository to the vector store
 
     Args:
         repo_name: The repository name in format 'owner/repo'
         branch: The branch name to load from (default: main)
-        file_filter: Optional file extension filter (e.g., '.py', '.js'). If None, loads all files.
+        vector_store: The vector store to add the repository to
     """
-
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-
-    vector_store = Chroma(
-        collection_name="code_collection",
-        embedding_function=embeddings,
-        persist_directory="./data/chroma_langchain_db",
-    )
 
     # delete everything to avoid duplicates, this enables pulling the latest version of the repo
     _delete_repo_from_vector_store(repo_name, vector_store)
@@ -35,7 +27,7 @@ def main(repo_name: str, branch: str = "main", file_filter: str | None = None):
         branch=branch,  # the branch name
         access_token=os.environ["GITHUB_ACCESS_TOKEN"],
         github_api_url="https://api.github.com",
-        file_filter=lambda file_path: file_path.endswith(file_filter) if file_filter else None,
+        file_filter=lambda file_path: file_path.endswith(".py"),
     )
 
     print("Loading docs...")
@@ -79,7 +71,6 @@ def parse_args():
             Examples:
             %(prog)s TorchJD/torchjd
             %(prog)s TorchJD/torchjd --branch main
-            %(prog)s TorchJD/torchjd --file-filter .py
         """,
     )
 
@@ -89,15 +80,10 @@ def parse_args():
 
     parser.add_argument("--branch", default="main", help="Branch name to load from (default: main)")
 
-    parser.add_argument(
-        "--file-filter",
-        default=None,
-        help="File extension filter (e.g., '.py', '.js'). If not specified, loads all files",
-    )
-
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args.repo_name, args.branch, args.file_filter)
+    vector_store = get_vector_store()
+    add_repo_to_vector_store(args.repo_name, vector_store, args.branch)

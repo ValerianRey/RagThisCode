@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from langchain.agents import create_agent
 from langchain_core.messages import AIMessage
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from langgraph.prebuilt import create_react_agent
 from pydantic import BaseModel
 
 
@@ -14,9 +14,13 @@ class ChatRequest(BaseModel):
 
 app = FastAPI()
 
+server_ip = "54.36.102.143"
+proxy_ip = "localhost"  # "0.0.0.0" when exposed to the internet, localhost when not
+proxy_port = 7070
+server_port = 9000
 allowed_origins = [
-    "http://localhost:7070",
-    "http://127.0.0.1:7070",
+    f"http://localhost:{proxy_port}",
+    f"http://127.0.0.1:{proxy_port}",
 ]
 
 app.add_middleware(
@@ -41,19 +45,10 @@ async def read_index():
 async def chat_stream(body: ChatRequest) -> StreamingResponse:
 
     async def event_generator():
-        server_ip = "localhost"
         client = MultiServerMCPClient(
             {
                 "similarity_search": {
-                    "url": f"http://{server_ip}:9000/mcp",
-                    "transport": "streamable_http",
-                },
-                "add_repo_to_vector_store": {
-                    "url": f"http://{server_ip}:9000/mcp",
-                    "transport": "streamable_http",
-                },
-                "delete_repo_from_vector_store": {
-                    "url": f"http://{server_ip}:9000/mcp",
+                    "url": f"http://{server_ip}:{server_port}/mcp",
                     "transport": "streamable_http",
                 },
             }
@@ -68,9 +63,9 @@ async def chat_stream(body: ChatRequest) -> StreamingResponse:
         Also use markdown to format your responses.
         """
 
-        agent = create_react_agent(
+        agent = create_agent(
             model="openai:gpt-4.1",
-            prompt=SYSTEM_PROMPT,
+            system_prompt=SYSTEM_PROMPT,
             tools=tools,
         )
 
@@ -132,4 +127,4 @@ async def chat_stream(body: ChatRequest) -> StreamingResponse:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app=app, host="0.0.0.0", port=7070)
+    uvicorn.run(app=app, host=server_ip, port=proxy_port)

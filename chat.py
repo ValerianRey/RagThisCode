@@ -32,7 +32,7 @@ def print_messages(response):
 
 async def main():
 
-    server_ip = "54.36.102.143"  # "54.36.102.143"
+    server_ip = "localhost"  # "54.36.102.143"  # "54.36.102.143"
 
     client = MultiServerMCPClient(
         {
