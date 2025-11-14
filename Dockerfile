@@ -29,7 +29,7 @@ COPY assets/ ./assets/
 # Ensure data directory exists (mounted volume can override)
 #RUN mkdir -p /app/data/chroma_langchain_db
 
-EXPOSE 7070
+EXPOSE 7070 9000
 
 # Default command: run both servers
 #CMD ["sh", "-c", "uv run python server.py & uv run python proxy.py"]
