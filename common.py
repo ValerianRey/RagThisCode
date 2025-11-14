@@ -1,9 +1,8 @@
 from langchain_chroma import Chroma
-from langchain_core.vectorstores import VectorStore
 from langchain_openai import OpenAIEmbeddings
 
 
-def get_vector_store() -> VectorStore:
+def get_vector_store() -> Chroma:
 
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 

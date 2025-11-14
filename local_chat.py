@@ -52,13 +52,6 @@ async def read_index():
     return FileResponse("frontend/index.html")
 
 
-# Redirect endpoint for GitHub button
-@app.get("/redirect")
-async def redirect_page():
-    """Redirect page that extracts repo from referer and redirects to chat"""
-    return FileResponse("frontend/redirect.html")
-
-
 @app.get("/{repo_name:path}")
 async def add_repo_page(repo_name: str):
     """Display loading page for repository ingestion"""
@@ -75,16 +68,25 @@ async def add_repo_page(repo_name: str):
 async def add_repo_api(repo_name: str):
     """API endpoint to add a repository to the vector store"""
 
-    try:
-        server_status = requests.get(f"http://{server_ip}:{server_port}/health")
-        if server_status.status_code != 404:
-            raise HTTPException(
-                status_code=500,
-                detail="MCP server is already running, make sure you do not have multiple tabs open.",
-            )
-    except requests.exceptions.ConnectionError:
-        # If the server is not running, we can continue
-        pass
+    # try:
+    #     server_status = requests.get(f"http://{server_ip}:{server_port}/health")
+    #     if server_status.status_code != 404:
+    #         if server_status.status_code == 200 and server_status.json()["repo_name"] == repo_name:
+    #             return JSONResponse(
+    #                 content={
+    #                     "status": "success",
+    #                     "message": f"MCP server is already running for {repo_name}.",
+    #                 },
+    #                 status_code=200,
+    #             )
+    #         else:
+    #             raise HTTPException(
+    #                 status_code=500,
+    #                 detail="MCP server is already running, make sure you do not have multiple tabs open.",
+    #             )
+    # except requests.exceptions.ConnectionError:
+    #     # If the server is not running, we can continue
+    #     pass
 
     try:
         vector_store = get_vector_store()
@@ -96,25 +98,29 @@ async def add_repo_api(repo_name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error adding repo to vector store: {str(e)}")
 
+    should_start_server = False
     try:
-        server_thread = threading.Thread(
-            target=run_mcp_server,
-            daemon=True,
-            args=(repo_name, vector_store, server_ip, server_port),
-        )
-        server_thread.start()
-        # Give the server a moment to start up
-        await asyncio.sleep(1.0)
+        requests.get(f"http://{server_ip}:{server_port}/health")
+    except requests.exceptions.ConnectionError:
+        # If the server is not running, we can proceed to start it
+        should_start_server = True
+
+    try:
+
+        if should_start_server:
+            server_thread = threading.Thread(
+                target=run_mcp_server,
+                daemon=True,
+                args=(vector_store, server_ip, server_port),
+            )
+            server_thread.start()
+            # Give the server a moment to start up
+            await asyncio.sleep(1.0)
 
         health_response = requests.get(f"http://{server_ip}:{server_port}/health")
         if health_response.status_code != 200:
             raise HTTPException(
                 status_code=500, detail=f"MCP server is not healthy: {health_response.text}"
-            )
-        if health_response.json()["repo_name"] != repo_name:
-            raise HTTPException(
-                status_code=500,
-                detail="MCP server is not serving the correct repo, make sure you do not have multiple tabs open.",
             )
 
         return JSONResponse(

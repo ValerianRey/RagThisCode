@@ -26,19 +26,20 @@ body {
 .topbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   padding: 14px 18px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+  background: rgba(255,255,255,0.02);
 }
 .logo {
-  width: 28px; height: 28px;
+  width: 64px; height: 64px;
   border-radius: 6px;
   object-fit: contain;
   flex-shrink: 0;
 }
-.title { font-weight: 600; letter-spacing: 0.2px; }
-.subtitle { color: var(--muted); font-size: 13px; }
+.title { font-weight: 600; letter-spacing: 0.2px; font-size: 20px; }
+.subtitle { color: var(--muted); font-size: 14px; }
 
 .messages {
   overflow: auto;
@@ -270,4 +271,46 @@ body {
 
 #root.show {
   display: block;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #24292f;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+  border-radius: 6px;
+  background: #f6f8fa;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.github-link:hover {
+  background: #f3f4f6;
+  border-color: rgba(27, 31, 36, 0.25);
+}
+
+.github-octocat {
+  flex-shrink: 0;
+}
+
+.github-text {
+  color: #24292f;
+  font-weight: 600;
+}
+
+.github-star {
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+.star-count {
+  margin-left: 4px;
+  color: #24292f;
+  font-weight: 600;
 }

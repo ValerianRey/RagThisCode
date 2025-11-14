@@ -1,14 +1,14 @@
 import argparse
 import os
 
+from langchain_chroma.vectorstores import Chroma
 from langchain_community.document_loaders import GithubFileLoader
-from langchain_core.vectorstores import VectorStore
 from langchain_text_splitters import Language, RecursiveCharacterTextSplitter
 
 from common import get_vector_store
 
 
-def add_repo_to_vector_store(repo_name: str, vector_store: VectorStore, branch: str = "main"):
+def add_repo_to_vector_store(repo_name: str, vector_store: Chroma, branch: str = "main"):
     """Add a repository to the vector store
 
     Args:
@@ -18,13 +18,14 @@ def add_repo_to_vector_store(repo_name: str, vector_store: VectorStore, branch: 
     """
 
     # delete everything to avoid duplicates, this enables pulling the latest version of the repo
-    _delete_repo_from_vector_store(repo_name, vector_store)
+    _clear_vector_store(vector_store)
+    # _delete_repo_from_vector_store(repo_name=repo_name, vector_store=vector_store)
 
     print(f"Adding {repo_name} to vector store")
 
     python_code_loader = GithubFileLoader(
-        repo=repo_name,  # the repo name
-        branch=branch,  # the branch name
+        repo=repo_name,
+        branch=branch,
         access_token=os.environ["GITHUB_ACCESS_TOKEN"],
         github_api_url="https://api.github.com",
         file_filter=lambda file_path: file_path.endswith(".py"),
@@ -55,7 +56,14 @@ def add_repo_to_vector_store(repo_name: str, vector_store: VectorStore, branch: 
     print(message)
 
 
-def _delete_repo_from_vector_store(repo_name: str, vector_store: VectorStore) -> None:
+def _clear_vector_store(vector_store: Chroma) -> None:
+    """Clear the vector store"""
+    print("Clearing vector store")
+    vector_store.reset_collection()
+    print("✅ Successfully cleared vector store")
+
+
+def _delete_repo_from_vector_store(repo_name: str, vector_store: Chroma) -> None:
     """Delete a repository from the vector store"""
     print(f"Deleting {repo_name} from vector store")
     vector_store.delete(where={"repo_name": repo_name})

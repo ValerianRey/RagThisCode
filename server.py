@@ -16,7 +16,7 @@ def print_docs(documents):
         print(_STR_SEPARATION)
 
 
-def run_mcp_server(repo_name: str, vector_store: VectorStore, server_ip: str, server_port: int):
+def run_mcp_server(vector_store: VectorStore, server_ip: str, server_port: int):
     """Run the MCP server (blocking call) at the given IP and port"""
 
     mcp = FastMCP("Demo 🚀")
@@ -29,7 +29,7 @@ def run_mcp_server(repo_name: str, vector_store: VectorStore, server_ip: str, se
 
     @mcp.custom_route("/health", methods=["GET"])
     async def health_check(request: Request):
-        return JSONResponse({"status": "healthy", "service": "mcp-server", "repo_name": repo_name})
+        return JSONResponse({"status": "healthy", "service": "mcp-server"})
 
     mcp.run(transport="http", host=server_ip, port=server_port)
 
@@ -38,7 +38,7 @@ def start_server(repo_name: str, server_ip: str, server_port: int):
     """Legacy function for backwards compatibility"""
     vector_store = get_vector_store()
     add_repo_to_vector_store(repo_name, vector_store)
-    run_mcp_server(repo_name, vector_store, server_ip, server_port)
+    run_mcp_server(vector_store, server_ip, server_port)
 
 
 if __name__ == "__main__":
