@@ -3,7 +3,7 @@ const { createRoot } = ReactDOM;
 
 function App() {
   const [messages, setMessages] = useState([
-    { id: 1, role: "assistant", content: "Ask me about your codebase. I'll search the vector store." },
+    { id: 1, role: "ChatBot", content: "Ask me about your codebase. I'll search the vector store." },
   ]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -20,11 +20,11 @@ function App() {
     setSending(true);
     setInput("");
 
-    const user = { id: Date.now(), role: "user", content: text };
+    const user = { id: Date.now(), role: "User", content: text };
     setMessages((prev) => [...prev, user]);
 
     const assistantId = Date.now() + 1;
-    const placeholder = { id: assistantId, role: "assistant", content: "Thinking..." };
+    const placeholder = { id: assistantId, role: "ChatBot", content: "Thinking..." };
     setMessages((prev) => [...prev, placeholder]);
 
     try {
@@ -53,13 +53,13 @@ function App() {
           const toRender = parts[0];
           setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: toRender } : m)));
           if (parts.length > 1) {
-            setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: toRender, final: true } : m)));
+            setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: toRender } : m)));
             break;
           }
         }
       }
     } catch (e) {
-      setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: "Error contacting backend.", final: true } : m)));
+      setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: "Error contacting backend." } : m)));
     }
 
     setSending(false);
@@ -79,9 +79,9 @@ function App() {
         <div className="hint">Tip: Ask things like "Explain UPGrad implementation"</div>
         {messages.map((m) => (
           <div key={m.id} className={`bubble ${m.role}`}>
-            <div className="avatar">{m.role === "assistant" ? "🤖" : "👤"}</div>
+            <div className="avatar">{m.role === "ChatBot" ? "🤖" : "👤"}</div>
             <div>
-              <div className="role">{m.final ? "assistant (final)" : m.role}</div>
+              <div className="role">{m.final ? "ChatBot (final)" : m.role}</div>
               <div className="content" style={m.final ? { borderColor: "#7c9cff", boxShadow: "0 0 0 1px rgba(124,156,255,0.25) inset" } : undefined}>
                 <div dangerouslySetInnerHTML={{ __html: marked.parse(m.content) }} />
               </div>

@@ -63,7 +63,7 @@ body {
   border-radius: 10px;
   line-height: 1.6;
 }
-.assistant .content { background: rgba(124,156,255,0.07); border-color: rgba(124,156,255,0.22); }
+.ChatBot .content { background: rgba(124,156,255,0.07); border-color: rgba(124,156,255,0.22); }
 
 .composer {
   display: grid;
