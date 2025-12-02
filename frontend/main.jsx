@@ -3,7 +3,7 @@ const { createRoot } = ReactDOM;
 
 function App() {
   const [messages, setMessages] = useState([
-    { id: 1, role: "ChatBot", content: "Ask me about your codebase. I'll search the vector store." },
+    { id: 1, role: "ChatBot", content: "Hi! I'm a ChatBot that has access to the TorchJD codebase. Ask me anything about it." },
   ]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -76,7 +76,7 @@ function App() {
       </div>
 
       <div className="messages">
-        <div className="hint">Tip: Ask things like "Explain UPGrad implementation"</div>
+        <div className="hint">Tip: Ask things like "How is UPGrad implemented?"</div>
         {messages.map((m) => (
           <div key={m.id} className={`bubble ${m.role}`}>
             <div className="avatar">{m.role === "ChatBot" ? "🤖" : "👤"}</div>
