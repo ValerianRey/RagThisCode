@@ -6,11 +6,11 @@ Install uv: https://docs.astral.sh/uv/getting-started/installation/
 
 Create a github access token at: https://github.com/settings/personal-access-tokens. You can make it
 never expire and give it access to only public repositories (unless you want to do RAG on your
-private repos as well).
+private repos as well). It seems that it only works if you use Tokens (classic) and select the scope public_repo.
 
 Add:
 ```
-export GITHUB_ACCESS_TOKEN="github_pat_....."
+export GITHUB_ACCESS_TOKEN="ghp_....."
 ```
 to your `.bashrc` or `.zshrc`.
 
