@@ -81,8 +81,8 @@ function App() {
           <div key={m.id} className={`bubble ${m.role}`}>
             <div className="avatar">{m.role === "ChatBot" ? "🤖" : "👤"}</div>
             <div>
-              <div className="role">{m.final ? "ChatBot (final)" : m.role}</div>
-              <div className="content" style={m.final ? { borderColor: "#7c9cff", boxShadow: "0 0 0 1px rgba(124,156,255,0.25) inset" } : undefined}>
+              <div className="role">{m.role}</div>
+              <div className="content">
                 <div dangerouslySetInnerHTML={{ __html: marked.parse(m.content) }} />
               </div>
             </div>
