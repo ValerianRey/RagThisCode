@@ -1,6 +1,10 @@
 # RagThisCode
 Setup an MCP server to do RAG over any public GitHub repo or any of your private repos
 
+# Demos powered by RagThisCode
+
+* https://chatwithtorchjd.org Here, the multi-objective optimization library [TorchJD](https://github.com/TorchJD/torchjd) is pre-fetched. You can directly talk with its code.
+
 # Installation
 Install uv: https://docs.astral.sh/uv/getting-started/installation/
 
