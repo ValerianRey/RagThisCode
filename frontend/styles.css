@@ -38,6 +38,8 @@ body {
 }
 .title { font-weight: 600; letter-spacing: 0.2px; }
 .subtitle { color: var(--muted); font-size: 13px; }
+.subtitle a { color: var(--brand); text-decoration: none; }
+.subtitle a:hover { text-decoration: underline; }
 
 .messages {
   overflow: auto;

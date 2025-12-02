@@ -70,8 +70,8 @@ function App() {
       <div className="topbar">
         <div className="logo" />
         <div>
-          <div className="title">RagThisCode</div>
-          <div className="subtitle">Code-aware chat powered by your vector store</div>
+          <div className="title">Chat with TorchJD</div>
+          <div className="subtitle">Code-aware chat powered by <a href="https://github.com/ValerianRey/RagThisCode/" target="_blank" rel="noopener noreferrer">RagThisCode</a></div>
         </div>
       </div>
 
