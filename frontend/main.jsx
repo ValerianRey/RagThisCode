@@ -70,7 +70,7 @@ function App() {
       <div className="topbar">
         <div className="logo" />
         <div>
-          <div className="title">Chat with TorchJD</div>
+          <div className="title">Chat with <a href="https://github.com/TorchJD/torchjd" target="_blank" rel="noopener noreferrer">TorchJD</a></div>
           <div className="subtitle">Code-aware chat powered by <a href="https://github.com/ValerianRey/RagThisCode/" target="_blank" rel="noopener noreferrer">RagThisCode</a></div>
         </div>
       </div>

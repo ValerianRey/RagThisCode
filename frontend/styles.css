@@ -37,6 +37,8 @@ body {
   background: linear-gradient(135deg, var(--brand), var(--brand-600));
 }
 .title { font-weight: 600; letter-spacing: 0.2px; }
+.title a { color: var(--text); text-decoration: none; }
+.title a:hover { color: var(--brand); text-decoration: underline; }
 .subtitle { color: var(--muted); font-size: 13px; }
 .subtitle a { color: var(--brand); text-decoration: none; }
 .subtitle a:hover { text-decoration: underline; }
