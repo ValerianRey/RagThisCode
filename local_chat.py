@@ -23,8 +23,8 @@ class ChatRequest(BaseModel):
 
 app = FastAPI()
 
-server_ip = "localhost"  # "0.0.0.0" when exposed to the internet, localhost when not
-proxy_ip = "localhost"  # "0.0.0.0" when exposed to the internet, localhost when not
+server_ip = "0.0.0.0"  # "0.0.0.0" when exposed to the internet, localhost when not
+proxy_ip = "0.0.0.0"  # "0.0.0.0" when exposed to the internet, localhost when not
 proxy_port = 7070
 server_port = 9000
 allowed_origins = [
@@ -159,7 +159,7 @@ async def chat_stream(body: ChatRequest) -> StreamingResponse:
         """
 
         agent = create_agent(
-            model="openai:gpt-4.1",
+            model="openai:gpt-5-mini",
             system_prompt=SYSTEM_PROMPT,
             tools=tools,
         )

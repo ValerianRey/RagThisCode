@@ -64,7 +64,7 @@ async def chat_stream(body: ChatRequest) -> StreamingResponse:
         """
 
         agent = create_agent(
-            model="openai:gpt-4.1",
+            model="openai:gpt-5-mini",
             system_prompt=SYSTEM_PROMPT,
             tools=tools,
         )
