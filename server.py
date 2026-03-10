@@ -16,7 +16,7 @@ def main():
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
     vector_store = Chroma(
-        collection_name="torchjd_code_collection",
+        collection_name="code_collection",
         embedding_function=embeddings,
         persist_directory="./data/chroma_langchain_db",
     )
